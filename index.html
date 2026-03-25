@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Agentic Society — Build. Don't Chat.</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080a0c;
+    --bg2: #0d1014;
+    --surface: #111518;
+    --border: #1e2428;
+    --amber: #f5a623;
+    --amber-dim: #b87619;
+    --amber-glow: rgba(245,166,35,0.12);
+    --red: #e03e3e;
+    --cyan: #38bdf8;
+    --text: #e8eaec;
+    --muted: #6b7580;
+    --grid: rgba(255,255,255,0.025);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Instrument Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image:
+      linear-gradient(var(--grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none; z-index: 0;
+  }
+
+  .ambient {
+    position: fixed; width: 900px; height: 600px; border-radius: 50%;
+    background: radial-gradient(ellipse, rgba(245,166,35,0.06) 0%, transparent 70%);
+    top: -200px; left: -200px; pointer-events: none; z-index: 0;
+    animation: drift 20s ease-in-out infinite alternate;
+  }
+  .ambient2 {
+    right: -300px; left: auto; bottom: -100px; top: auto;
+    background: radial-gradient(ellipse, rgba(56,189,248,0.04) 0%, transparent 70%);
+    animation-direction: alternate-reverse; animation-duration: 25s;
+  }
+  @keyframes drift {
+    from { transform: translate(0,0) scale(1); }
+    to   { transform: translate(80px, 60px) scale(1.1); }
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 64px;
+    background: rgba(8,10,12,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 0.12em; color: var(--amber); }
+  .nav-logo span { color: var(--text); }
+  .nav-tag { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; }
+  .nav-cta {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--bg); background: var(--amber); border: none; padding: 8px 20px; cursor: pointer;
+    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: #ffc347; transform: translateY(-1px); }
+
+  .hero {
+    position: relative; z-index: 1;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
+    padding: 120px 40px 80px; max-width: 1200px; margin: 0 auto;
+  }
+  .hero-eyebrow {
+    font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 24px; opacity: 0;
+    animation: fadeUp 0.6s 0.2s ease forwards;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before { content: ''; display: inline-block; width: 32px; height: 1px; background: var(--amber); }
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(4rem, 10vw, 9.5rem); line-height: 0.95; letter-spacing: 0.02em;
+    color: var(--text); margin-bottom: 10px; opacity: 0;
+    animation: fadeUp 0.7s 0.35s ease forwards;
+  }
+  .hero-title .strike { position: relative; color: var(--muted); display: inline-block; }
+  .hero-title .strike::after {
+    content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 4px;
+    background: var(--red); transform: scaleX(0); transform-origin: left;
+    animation: strikeThru 0.5s 1.2s cubic-bezier(.7,0,.3,1) forwards;
+  }
+  .hero-title .highlight { color: var(--amber); }
+  @keyframes strikeThru { to { transform: scaleX(1); } }
+
+  .hero-sub {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 7vw, 6.5rem); line-height: 0.95; letter-spacing: 0.02em;
+    color: var(--text); margin-bottom: 40px; opacity: 0;
+    animation: fadeUp 0.7s 0.5s ease forwards;
+  }
+  .hero-desc {
+    font-size: 1.1rem; line-height: 1.7; color: #a0aab4;
+    max-width: 560px; margin-bottom: 48px; opacity: 0;
+    animation: fadeUp 0.7s 0.65s ease forwards;
+  }
+  .hero-desc strong { color: var(--text); font-weight: 600; }
+  .hero-actions {
+    display: flex; align-items: center; gap: 20px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.7s 0.8s ease forwards;
+  }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: 'DM Mono', monospace; font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--bg); background: var(--amber); border: none; padding: 14px 32px; cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+  }
+  .btn-primary:hover { background: #ffc347; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(245,166,35,0.3); }
+  .btn-secondary {
+    font-family: 'DM Mono', monospace; font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); background: none; border: 1px solid var(--border); padding: 14px 28px; cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .btn-secondary:hover { color: var(--text); border-color: var(--muted); }
+
+  .ticker-wrap {
+    position: relative; z-index: 1;
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    background: var(--bg2); overflow: hidden; padding: 14px 0; white-space: nowrap;
+  }
+  .ticker-inner { display: inline-flex; animation: ticker 30s linear infinite; }
+  .ticker-inner span { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); padding: 0 40px; }
+  .ticker-inner span.accent { color: var(--amber); }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  section { position: relative; z-index: 1; padding: 100px 40px; max-width: 1200px; margin: 0 auto; }
+  .section-label {
+    font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase;
+    color: var(--amber); margin-bottom: 20px; display: flex; align-items: center; gap: 12px;
+  }
+  .section-label::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--amber); }
+  .section-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.8rem, 5vw, 5rem); line-height: 1; letter-spacing: 0.03em; margin-bottom: 60px; }
+  .section-title em { font-style: normal; color: var(--amber); }
+
+  .manifesto-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: var(--border); border: 1px solid var(--border); margin-bottom: 80px; }
+  .manifesto-card { background: var(--surface); padding: 44px 36px; position: relative; overflow: hidden; transition: background 0.3s; }
+  .manifesto-card:hover { background: #161b20; }
+  .manifesto-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: var(--amber); transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s cubic-bezier(.7,0,.3,1);
+  }
+  .manifesto-card:hover::before { transform: scaleX(1); }
+  .card-icon { font-size: 2rem; margin-bottom: 20px; display: block; }
+  .card-number { position: absolute; top: 20px; right: 24px; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--border); letter-spacing: 0.1em; }
+  .card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; color: var(--amber); margin-bottom: 14px; }
+  .card-body { font-size: 0.92rem; line-height: 1.7; color: #8090a0; }
+
+  .expect-list { display: flex; flex-direction: column; gap: 2px; border: 1px solid var(--border); background: var(--border); }
+  .expect-item { background: var(--surface); display: grid; grid-template-columns: 64px 1fr auto; align-items: center; padding: 28px 36px; gap: 28px; transition: background 0.25s; cursor: default; }
+  .expect-item:hover { background: #13181d; }
+  .expect-num { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; color: var(--amber-dim); text-align: center; background: var(--amber-glow); border: 1px solid rgba(245,166,35,0.15); padding: 8px 12px; }
+  .expect-content h3 { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: 0.06em; margin-bottom: 6px; }
+  .expect-content p { font-size: 0.88rem; color: var(--muted); line-height: 1.5; }
+  .expect-tag { font-family: 'DM Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); border: 1px solid var(--border); padding: 5px 12px; white-space: nowrap; }
+  .expect-tag.active { color: var(--cyan); border-color: rgba(56,189,248,0.25); background: rgba(56,189,248,0.05); }
+
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; background: var(--border); border: 1px solid var(--border); margin-bottom: 2px; }
+  .stat-box { background: var(--surface); padding: 36px 28px; text-align: center; transition: background 0.2s; }
+  .stat-box:hover { background: #161b20; }
+  .stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: var(--amber); line-height: 1; margin-bottom: 8px; letter-spacing: 0.04em; }
+  .stat-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); }
+
+  .cta-banner {
+    position: relative; z-index: 1; background: var(--amber); padding: 80px 60px;
+    margin: 0 40px 100px; overflow: hidden;
+    clip-path: polygon(20px 0%, 100% 0%, calc(100% - 20px) 100%, 0% 100%);
+  }
+  .cta-banner::before {
+    content: 'BUILD'; position: absolute; right: -40px; top: -20px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 18rem; color: rgba(0,0,0,0.08);
+    line-height: 1; pointer-events: none; letter-spacing: 0.05em;
+  }
+  .cta-inner { display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; position: relative; }
+  .cta-text h2 { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4.5rem); color: var(--bg); line-height: 1; letter-spacing: 0.04em; margin-bottom: 10px; }
+  .cta-text p { font-size: 1rem; color: rgba(0,0,0,0.6); }
+  .btn-dark {
+    font-family: 'DM Mono', monospace; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--amber); background: var(--bg); border: none; padding: 16px 36px; cursor: pointer;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+    transition: background 0.2s, transform 0.15s; white-space: nowrap;
+  }
+  .btn-dark:hover { background: #0f1316; transform: translateY(-2px); }
+
+  footer {
+    position: relative; z-index: 1; border-top: 1px solid var(--border); padding: 40px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;
+    gap: 20px; background: var(--bg2);
+  }
+  .footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: 0.12em; color: var(--amber); }
+  .footer-logo span { color: var(--muted); }
+  .footer-note { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-align: center; }
+  .footer-tagline { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--border); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .blink { animation: blink 1.1s step-end infinite; color: var(--amber); }
+  @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: 0; } }
+
+  @media (max-width: 900px) {
+    .manifesto-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+    .expect-item { grid-template-columns: 48px 1fr; }
+    .expect-tag { display: none; }
+    nav { padding: 0 20px; }
+    section { padding: 70px 20px; }
+    .cta-banner { margin: 0 20px 70px; padding: 50px 32px; }
+    footer { padding: 32px 20px; }
+    .hero { padding: 100px 20px 60px; }
+  }
+  @media (max-width: 600px) {
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .nav-tag { display: none; }
+    .cta-inner { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<div class="ambient"></div>
+<div class="ambient ambient2"></div>
+
+<nav>
+  <div class="nav-logo">AI Agentic<span> Society</span></div>
+  <div class="nav-tag">v2026 // Builder-First</div>
+  <button class="nav-cta">Join the Build</button>
+</nav>
+
+<div class="hero">
+  <div class="hero-eyebrow">AI Agentic Society // Est. 2026</div>
+  <h1 class="hero-title">
+    The Era of <span class="strike">Chatting</span><br>
+    <span class="highlight">Is Over.</span>
+  </h1>
+  <div class="hero-sub">The Era of<br>Building Has Begun.</div>
+  <p class="hero-desc">
+    In 2026, writing a prompt is table stakes. The real competitive advantage lies in
+    <strong>Agentic Workflows</strong>—systems that don't just talk, but act, reason, and execute.
+    <br><br>
+    <strong>Welcome to the AI Agentic Society.</strong> We don't follow the hype. We build the infrastructure.<span class="blink">_</span>
+  </p>
+  <div class="hero-actions">
+    <button class="btn-primary"><span>⬡</span> Join the Community</button>
+    <button class="btn-secondary">Read the Manifesto</button>
+  </div>
+</div>
+
+<div class="ticker-wrap">
+  <div class="ticker-inner">
+    <span class="accent">// ARCHITECT</span><span>Multi-Step Autonomous Agents</span>
+    <span class="accent">// SECURE</span><span>Enterprise-Grade Guardrails</span>
+    <span class="accent">// SCALE</span><span>Blueprints for Global Impact</span>
+    <span class="accent">// BUILD</span><span>Stop Asking. Start Orchestrating.</span>
+    <span class="accent">// ARCHITECT</span><span>Multi-Step Autonomous Agents</span>
+    <span class="accent">// SECURE</span><span>Enterprise-Grade Guardrails</span>
+    <span class="accent">// SCALE</span><span>Blueprints for Global Impact</span>
+    <span class="accent">// BUILD</span><span>Stop Asking. Start Orchestrating.</span>
+  </div>
+</div>
+
+<section>
+  <div class="section-label reveal">Why We're Here</div>
+  <h2 class="section-title reveal">Three Pillars.<br><em>Zero Hype.</em></h2>
+  <div class="manifesto-grid">
+    <div class="manifesto-card reveal">
+      <span class="card-number">01</span>
+      <span class="card-icon">🛠️</span>
+      <div class="card-title">Architect</div>
+      <p class="card-body">Moving beyond single prompts into multi-step, autonomous agents. We design systems with memory, planning, and real-world tool use—not demos.</p>
+    </div>
+    <div class="manifesto-card reveal">
+      <span class="card-number">02</span>
+      <span class="card-icon">🛡️</span>
+      <div class="card-title">Secure</div>
+      <p class="card-body">Implementing the guardrails and ethics that enterprise-grade AI demands. Because deployed agents need accountability, not just capability.</p>
+    </div>
+    <div class="manifesto-card reveal">
+      <span class="card-number">03</span>
+      <span class="card-icon">📡</span>
+      <div class="card-title">Scale</div>
+      <p class="card-body">Sharing the blueprints that turn local experiments into global infrastructure. The gap between prototype and production is where we live.</p>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top: 0;">
+  <div class="section-label reveal">Inside the Community</div>
+  <h2 class="section-title reveal">What You'll<br><em>Actually Get.</em></h2>
+  <div class="expect-list">
+    <div class="expect-item reveal">
+      <div class="expect-num">01</div>
+      <div class="expect-content"><h3>Workflow Blueprints</h3><p>Proven recipes for agentic automation. Copy, fork, and deploy real systems—not thought experiments.</p></div>
+      <div class="expect-tag active">Live</div>
+    </div>
+    <div class="expect-item reveal">
+      <div class="expect-num">02</div>
+      <div class="expect-content"><h3>The Failure Files</h3><p>An honest look at what's not working in GenAI right now. Because failure analysis is a superpower.</p></div>
+      <div class="expect-tag active">Live</div>
+    </div>
+    <div class="expect-item reveal">
+      <div class="expect-num">03</div>
+      <div class="expect-content"><h3>Governance Audits</h3><p>Keeping your builds safe, ethical, and defensible. Compliance isn't the enemy of innovation.</p></div>
+      <div class="expect-tag">Coming Soon</div>
+    </div>
+    <div class="expect-item reveal">
+      <div class="expect-num">04</div>
+      <div class="expect-content"><h3>Builder Roundtables</h3><p>Live sessions with ops leaders, engineers, and founders who are actually shipping agentic systems in production.</p></div>
+      <div class="expect-tag">Coming Soon</div>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top: 0; padding-bottom: 0;">
+  <div class="stats-row reveal">
+    <div class="stat-box"><div class="stat-num" id="s1">2,400+</div><div class="stat-label">Builders Joined</div></div>
+    <div class="stat-box"><div class="stat-num" id="s2">85+</div><div class="stat-label">Blueprints Shared</div></div>
+    <div class="stat-box"><div class="stat-num" id="s3">40+</div><div class="stat-label">Industries Covered</div></div>
+    <div class="stat-box"><div class="stat-num" id="s4">0</div><div class="stat-label">Hype Merchants</div></div>
+  </div>
+</section>
+
+<section>
+  <div class="section-label reveal">For Whom</div>
+  <h2 class="section-title reveal">If You're Ready to<br><em>Orchestrate—</em></h2>
+  <p style="color: var(--muted); font-size: 1.05rem; line-height: 1.8; max-width: 600px; margin-bottom: 48px;" class="reveal">
+    This is a <strong style="color: var(--text);">Builder-First</strong> community. Whether you're an Ops leader, a developer, or a founder—if you're done "asking" and ready to start <strong style="color: var(--amber);">orchestrating</strong>, you belong here.
+  </p>
+  <div class="stats-row reveal" style="max-width: 640px;">
+    <div class="stat-box" style="padding: 24px 20px;"><div class="stat-num" style="font-size:2rem;">⚙️</div><div class="stat-label">Developers</div></div>
+    <div class="stat-box" style="padding: 24px 20px;"><div class="stat-num" style="font-size:2rem;">📊</div><div class="stat-label">Ops Leaders</div></div>
+    <div class="stat-box" style="padding: 24px 20px;"><div class="stat-num" style="font-size:2rem;">🚀</div><div class="stat-label">Founders</div></div>
+    <div class="stat-box" style="padding: 24px 20px;"><div class="stat-num" style="font-size:2rem;">🔬</div><div class="stat-label">Researchers</div></div>
+  </div>
+</section>
+
+<div class="cta-banner">
+  <div class="cta-inner">
+    <div class="cta-text">
+      <h2>Let's Build Something<br>That Actually Works.</h2>
+      <p>Stop chatting. Start shipping. Join the AI Agentic Society today.</p>
+    </div>
+    <button class="btn-dark">🔑 Join Free — Start Building</button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-logo">AI Agentic<span> Society</span></div>
+  <div class="footer-note">© 2026 AI Agentic Society — Builder-First Community</div>
+  <div class="footer-tagline">Stop Asking. Start Orchestrating.</div>
+</footer>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (e.isIntersecting) {
+        e.target.style.transitionDelay = (Array.from(reveals).indexOf(e.target) % 4) * 0.07 + 's';
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => io.observe(r));
+
+  document.addEventListener('mousemove', (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 40;
+    const y = (e.clientY / window.innerHeight - 0.5) * 40;
+    document.querySelector('.ambient').style.transform = `translate(${x}px, ${y}px)`;
+  });
+
+  function animateCount(el, target, suffix) {
+    let start = 0;
+    const duration = 1800;
+    const step = (ts) => {
+      if (!start) start = ts;
+      const p = Math.min((ts - start) / duration, 1);
+      const ease = 1 - Math.pow(1 - p, 3);
+      el.textContent = Math.floor(ease * target).toLocaleString() + suffix;
+      if (p < 1) requestAnimationFrame(step);
+      else el.textContent = target.toLocaleString() + suffix;
+    };
+    requestAnimationFrame(step);
+  }
+
+  const statEls = [
+    { el: document.getElementById('s1'), val: 2400, suffix: '+' },
+    { el: document.getElementById('s2'), val: 85,   suffix: '+' },
+    { el: document.getElementById('s3'), val: 40,   suffix: '+' },
+    { el: document.getElementById('s4'), val: 0,    suffix: ''  },
+  ];
+  const so = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const found = statEls.find(s => s.el === e.target);
+        if (found) animateCount(found.el, found.val, found.suffix);
+        so.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+  statEls.forEach(s => so.observe(s.el));
+</script>
+</body>
+</html>
