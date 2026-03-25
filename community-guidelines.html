@@ -1,0 +1,952 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Guidelines — AI Agentic Society</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600&family=Mona+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:         #0d1117;
+    --bg2:        #161b22;
+    --bg3:        #1c2128;
+    --border:     #30363d;
+    --border2:    #21262d;
+    --green:      #238636;
+    --green-h:    #2ea043;
+    --green-fade: rgba(35,134,54,0.08);
+    --blue:       #388bfd;
+    --blue-dim:   #1f6feb;
+    --orange:     #db6d28;
+    --red:        #f85149;
+    --red-fade:   rgba(248,81,73,0.08);
+    --yellow:     #e3b341;
+    --yellow-fade:rgba(227,179,65,0.08);
+    --purple:     #bc8cff;
+    --purple-fade:rgba(188,140,255,0.08);
+    --text:       #e6edf3;
+    --text2:      #8b949e;
+    --text3:      #6e7681;
+    --link:       #58a6ff;
+    --tag-bg:     rgba(56,139,253,0.12);
+    --tag-border: rgba(56,139,253,0.35);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Mona Sans', -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  /* ── NAV ── */
+  .gh-nav {
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(13,17,23,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+    height: 62px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .gh-nav-logo {
+    display: flex; align-items: center; gap: 8px;
+    color: var(--text); font-weight: 700; font-size: 15px; flex-shrink: 0;
+    text-decoration: none;
+  }
+  .gh-nav-logo svg { width: 28px; height: 28px; fill: var(--text); }
+  .nav-sep { color: var(--text3); font-size: 18px; font-weight: 300; }
+  .nav-page { color: var(--text2); font-size: 15px; font-weight: 500; }
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+  .nav-btn {
+    font-size: 13px; font-weight: 500; padding: 5px 14px; border-radius: 6px;
+    border: 1px solid var(--border); background: var(--bg3); color: var(--text);
+    cursor: pointer; font-family: inherit; transition: background 0.15s;
+  }
+  .nav-btn:hover { background: rgba(177,186,196,0.1); }
+  .nav-btn.primary { background: var(--green); border-color: rgba(240,246,252,0.1); color: #fff; }
+  .nav-btn.primary:hover { background: var(--green-h); }
+
+  /* ── LAYOUT ── */
+  .page-wrap {
+    max-width: 1280px; margin: 0 auto;
+    padding: 32px 24px;
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+
+  /* ── SIDEBAR TOC ── */
+  .toc {
+    position: sticky; top: 94px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .toc-header {
+    padding: 10px 14px;
+    font-size: 12px; font-weight: 700; color: var(--text2);
+    letter-spacing: 0.05em; text-transform: uppercase;
+    background: var(--bg3); border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 8px;
+  }
+  .toc-header svg { width: 14px; height: 14px; fill: var(--text3); }
+  .toc-list { list-style: none; padding: 8px 0; }
+  .toc-item a {
+    display: block; padding: 5px 14px;
+    font-size: 12.5px; color: var(--text2);
+    text-decoration: none; border-left: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+    line-height: 1.4;
+  }
+  .toc-item a:hover { color: var(--link); background: rgba(56,139,253,0.06); }
+  .toc-item.active a { color: var(--link); border-left-color: var(--blue); background: rgba(56,139,253,0.06); }
+  .toc-item.sub a { padding-left: 26px; font-size: 12px; }
+  .toc-divider { height: 1px; background: var(--border2); margin: 6px 0; }
+  .toc-version {
+    padding: 10px 14px; border-top: 1px solid var(--border);
+    font-size: 11px; color: var(--text3); font-family: 'JetBrains Mono', monospace;
+  }
+
+  /* ── MAIN CONTENT ── */
+  .doc-body { min-width: 0; }
+
+  /* Page header */
+  .doc-header {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 28px 32px;
+    margin-bottom: 24px;
+    position: relative; overflow: hidden;
+  }
+  .doc-header::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: linear-gradient(90deg, var(--green), var(--blue), var(--purple));
+  }
+  .doc-breadcrumb {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; color: var(--text3);
+    margin-bottom: 12px;
+    display: flex; align-items: center; gap: 6px;
+  }
+  .doc-breadcrumb span { color: var(--text3); }
+  .doc-breadcrumb a { color: var(--link); text-decoration: none; }
+  .doc-title {
+    font-size: 28px; font-weight: 800; letter-spacing: -0.5px;
+    color: var(--text); margin-bottom: 10px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .doc-subtitle { font-size: 15px; color: var(--text2); line-height: 1.6; max-width: 680px; }
+  .doc-meta {
+    display: flex; flex-wrap: wrap; gap: 16px; margin-top: 20px;
+    padding-top: 16px; border-top: 1px solid var(--border2);
+    font-size: 12px; color: var(--text3);
+  }
+  .doc-meta-item { display: flex; align-items: center; gap: 6px; }
+  .doc-meta-item svg { width: 14px; height: 14px; fill: var(--text3); }
+  .version-badge {
+    background: var(--green-fade); border: 1px solid rgba(35,134,54,0.35);
+    color: var(--green-h); font-family: 'JetBrains Mono', monospace;
+    font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 12px;
+  }
+
+  /* Sections */
+  .doc-section {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+  .section-head {
+    padding: 14px 20px;
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; gap: 12px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .section-head:hover { background: rgba(177,186,196,0.05); }
+  .section-icon {
+    width: 32px; height: 32px; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .section-icon.green  { background: var(--green-fade); }
+  .section-icon.blue   { background: rgba(56,139,253,0.1); }
+  .section-icon.orange { background: rgba(219,109,40,0.1); }
+  .section-icon.red    { background: var(--red-fade); }
+  .section-icon.yellow { background: var(--yellow-fade); }
+  .section-icon.purple { background: var(--purple-fade); }
+  .section-icon.teal   { background: rgba(56,189,248,0.1); }
+  .section-title-text { flex: 1; }
+  .section-title-text h2 { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .section-title-text p  { font-size: 12px; color: var(--text3); }
+  .section-chevron { color: var(--text3); font-size: 12px; transition: transform 0.2s; }
+  .section-head.open .section-chevron { transform: rotate(180deg); }
+  .section-body { padding: 24px 28px; }
+
+  /* Rules list */
+  .rules-list { display: flex; flex-direction: column; gap: 12px; }
+  .rule-item {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 14px 16px;
+    background: var(--bg3); border: 1px solid var(--border2);
+    border-radius: 6px;
+    transition: border-color 0.2s;
+  }
+  .rule-item:hover { border-color: var(--border); }
+  .rule-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px; font-weight: 700;
+    min-width: 28px; height: 28px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 4px; flex-shrink: 0;
+    background: var(--bg2); border: 1px solid var(--border);
+    color: var(--text2);
+  }
+  .rule-content { flex: 1; }
+  .rule-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .rule-desc  { font-size: 13px; color: var(--text2); line-height: 1.6; }
+  .rule-desc strong { color: var(--text); }
+  .rule-tag {
+    font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700;
+    padding: 2px 8px; border-radius: 12px; white-space: nowrap; flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .rule-tag.must    { background: var(--green-fade); border: 1px solid rgba(35,134,54,0.3); color: var(--green-h); }
+  .rule-tag.should  { background: rgba(56,139,253,0.1); border: 1px solid rgba(56,139,253,0.3); color: var(--blue); }
+  .rule-tag.never   { background: var(--red-fade); border: 1px solid rgba(248,81,73,0.3); color: var(--red); }
+  .rule-tag.warn    { background: var(--yellow-fade); border: 1px solid rgba(227,179,65,0.3); color: var(--yellow); }
+
+  /* Do / Don't table */
+  .do-dont {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 12px; margin-top: 4px;
+  }
+  .do-box, .dont-box {
+    border-radius: 6px; padding: 14px 16px;
+  }
+  .do-box   { background: var(--green-fade); border: 1px solid rgba(35,134,54,0.25); }
+  .dont-box { background: var(--red-fade);   border: 1px solid rgba(248,81,73,0.25); }
+  .do-box h4   { font-size: 12px; font-weight: 700; color: var(--green-h); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .dont-box h4 { font-size: 12px; font-weight: 700; color: var(--red);     margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+  .do-box ul, .dont-box ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .do-box li, .dont-box li { font-size: 12.5px; color: var(--text2); line-height: 1.5; display: flex; align-items: flex-start; gap: 8px; }
+  .do-box li::before   { content: '✓'; color: var(--green-h); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+  .dont-box li::before { content: '✕'; color: var(--red);     font-weight: 700; flex-shrink: 0; margin-top: 1px; }
+
+  /* Callout boxes */
+  .callout {
+    border-radius: 6px; padding: 14px 18px; margin: 16px 0;
+    font-size: 13px; line-height: 1.6;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .callout-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .callout.info    { background: rgba(56,139,253,0.08); border: 1px solid rgba(56,139,253,0.25); color: var(--text2); }
+  .callout.warning { background: var(--yellow-fade); border: 1px solid rgba(227,179,65,0.3); color: var(--text2); }
+  .callout.danger  { background: var(--red-fade); border: 1px solid rgba(248,81,73,0.3); color: var(--text2); }
+  .callout.success { background: var(--green-fade); border: 1px solid rgba(35,134,54,0.3); color: var(--text2); }
+  .callout strong  { color: var(--text); }
+
+  /* Enforcement table */
+  .enf-table { width: 100%; border-collapse: collapse; font-size: 13px; margin-top: 4px; }
+  .enf-table th { background: var(--bg3); color: var(--text2); font-weight: 600; padding: 9px 14px; border: 1px solid var(--border); text-align: left; font-size: 12px; }
+  .enf-table td { padding: 10px 14px; border: 1px solid var(--border2); color: var(--text2); vertical-align: middle; }
+  .enf-table tr:hover td { background: rgba(177,186,196,0.03); }
+  .enf-table td:first-child { font-weight: 600; color: var(--text); white-space: nowrap; }
+  .sev { display: inline-flex; align-items: center; gap: 6px; font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 12px; white-space: nowrap; }
+  .sev.low    { background: var(--yellow-fade); border: 1px solid rgba(227,179,65,0.3); color: var(--yellow); }
+  .sev.med    { background: rgba(219,109,40,0.08); border: 1px solid rgba(219,109,40,0.3); color: var(--orange); }
+  .sev.high   { background: var(--red-fade); border: 1px solid rgba(248,81,73,0.3); color: var(--red); }
+  .sev.perm   { background: rgba(188,140,255,0.1); border: 1px solid rgba(188,140,255,0.3); color: var(--purple); }
+
+  /* Content separators */
+  .rule-divider { height: 1px; background: var(--border2); margin: 16px 0; }
+
+  /* Values grid */
+  .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .value-card {
+    background: var(--bg3); border: 1px solid var(--border2); border-radius: 6px;
+    padding: 16px; text-align: center; transition: border-color 0.2s, transform 0.2s;
+  }
+  .value-card:hover { border-color: var(--border); transform: translateY(-2px); }
+  .value-emoji { font-size: 24px; margin-bottom: 8px; }
+  .value-name  { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+  .value-desc  { font-size: 11.5px; color: var(--text3); line-height: 1.5; }
+
+  /* Code style */
+  code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; background: var(--bg3);
+    border: 1px solid var(--border2); border-radius: 4px;
+    padding: 1px 6px; color: var(--text);
+  }
+
+  /* Footer */
+  .doc-footer {
+    background: var(--bg2); border: 1px solid var(--border); border-radius: 6px;
+    padding: 20px 24px; margin-top: 24px;
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;
+  }
+  .doc-footer p { font-size: 12px; color: var(--text3); line-height: 1.7; }
+  .doc-footer a { color: var(--link); text-decoration: none; }
+  .doc-footer a:hover { text-decoration: underline; }
+  .footer-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+  /* GH footer */
+  .gh-footer { border-top: 1px solid var(--border); padding: 28px 24px; text-align: center; background: var(--bg2); margin-top: 48px; }
+  .gh-footer p { font-size: 12px; color: var(--text3); line-height: 1.8; }
+  .gh-footer a { color: var(--text3); text-decoration: none; }
+  .gh-footer a:hover { color: var(--link); }
+
+  /* Animations */
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .doc-body > * { animation: fadeIn 0.35s ease both; }
+  .doc-section:nth-child(1) { animation-delay: 0.05s; }
+  .doc-section:nth-child(2) { animation-delay: 0.10s; }
+  .doc-section:nth-child(3) { animation-delay: 0.15s; }
+  .doc-section:nth-child(4) { animation-delay: 0.20s; }
+  .doc-section:nth-child(5) { animation-delay: 0.25s; }
+  .doc-section:nth-child(6) { animation-delay: 0.30s; }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .page-wrap { grid-template-columns: 1fr; }
+    .toc { position: static; }
+    .do-dont { grid-template-columns: 1fr; }
+    .values-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .values-grid { grid-template-columns: 1fr; }
+    .doc-title { font-size: 22px; }
+    .section-body { padding: 16px; }
+    .gh-nav { padding: 0 16px; }
+    .page-wrap { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="gh-nav">
+  <a href="index.html" class="gh-nav-logo">
+    <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+    AI Agentic Society
+  </a>
+  <span class="nav-sep">/</span>
+  <span class="nav-page">Community Guidelines</span>
+  <div class="nav-right">
+    <button class="nav-btn">Discuss</button>
+    <button class="nav-btn primary">Join Society</button>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page-wrap">
+
+  <!-- SIDEBAR TOC -->
+  <aside>
+    <div class="toc">
+      <div class="toc-header">
+        <svg viewBox="0 0 16 16"><path d="M2 7.75A.75.75 0 0 1 2.75 7h10a.75.75 0 0 1 0 1.5h-10A.75.75 0 0 1 2 7.75Zm0-4A.75.75 0 0 1 2.75 3h10a.75.75 0 0 1 0 1.5h-10A.75.75 0 0 1 2 3.75Zm0 8A.75.75 0 0 1 2.75 11h5a.75.75 0 0 1 0 1.5h-5A.75.75 0 0 1 2 11.75Z"/></svg>
+        On this page
+      </div>
+      <ul class="toc-list">
+        <li class="toc-item active"><a href="#mission">Our Mission</a></li>
+        <li class="toc-item"><a href="#values">Core Values</a></li>
+        <li class="toc-item"><a href="#conduct">Code of Conduct</a></li>
+        <li class="toc-item sub"><a href="#do-dont">Do's &amp; Don'ts</a></li>
+        <li class="toc-item"><a href="#content">Content Standards</a></li>
+        <li class="toc-item sub"><a href="#quality">Quality Bar</a></li>
+        <li class="toc-item"><a href="#knowledge">Knowledge Sharing</a></li>
+        <li class="toc-item"><a href="#safety">AI Safety &amp; Ethics</a></li>
+        <li class="toc-item"><a href="#enforcement">Enforcement</a></li>
+        <li class="toc-item"><a href="#reporting">Reporting</a></li>
+        <li class="toc-item"><a href="#amendments">Amendments</a></li>
+      </ul>
+      <div class="toc-divider"></div>
+      <div class="toc-version">v1.0.0 · March 2026</div>
+    </div>
+  </aside>
+
+  <!-- MAIN DOC -->
+  <main class="doc-body">
+
+    <!-- PAGE HEADER -->
+    <div class="doc-header">
+      <div class="doc-breadcrumb">
+        <a href="index.html">ai-agentic-society</a>
+        <span>/</span>
+        <span>community-guidelines.md</span>
+      </div>
+      <div class="doc-title">
+        🏛️ Community Guidelines &amp; Rules
+      </div>
+      <p class="doc-subtitle">
+        The operating principles that keep the AI Agentic Society a high-signal, builder-first space.
+        Read them once. Internalize them always. We are here to build — not to perform.
+      </p>
+      <div class="doc-meta">
+        <div class="doc-meta-item">
+          <svg viewBox="0 0 16 16"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.751.751 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Z"/></svg>
+          Effective: March 2026
+        </div>
+        <div class="doc-meta-item">
+          <svg viewBox="0 0 16 16"><path d="M10.68 11.74a6 6 0 0 1-7.922-8.982 6 6 0 0 1 8.982 7.922l3.04 3.04a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215ZM11.5 7a4.499 4.499 0 1 0-8.997 0A4.499 4.499 0 0 0 11.5 7Z"/></svg>
+          Applies to all members
+        </div>
+        <span class="version-badge">v1.0.0 · ACTIVE</span>
+      </div>
+    </div>
+
+    <!-- 1. MISSION -->
+    <div class="doc-section" id="mission">
+      <div class="section-head open" onclick="toggleSection(this)">
+        <div class="section-icon green">🎯</div>
+        <div class="section-title-text">
+          <h2>1. Our Mission &amp; Who We Are</h2>
+          <p>Why this community exists and what we stand for</p>
+        </div>
+        <span class="section-chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <p style="color:var(--text2);font-size:14px;line-height:1.8;margin-bottom:16px;">
+          The <strong style="color:var(--text);">AI Agentic Society</strong> is a builder-first community of professionals, developers, founders, and researchers who are serious about moving beyond AI hype into real-world production systems. We exist for one reason:
+        </p>
+        <div class="callout success">
+          <span class="callout-icon">⬡</span>
+          <div><strong>The era of "chatting" with AI is over. The era of building has begun.</strong> We architect multi-step agents, secure them with enterprise-grade guardrails, and share the blueprints that scale local experiments into global impact.</div>
+        </div>
+        <p style="color:var(--text2);font-size:13px;line-height:1.8;margin-top:12px;">
+          These guidelines exist to protect the signal-to-noise ratio of this community. Every rule below derives from one guiding principle: <strong style="color:var(--text);">respect the builder's time.</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- 2. CORE VALUES -->
+    <div class="doc-section" id="values">
+      <div class="section-head open" onclick="toggleSection(this)">
+        <div class="section-icon purple">💎</div>
+        <div class="section-title-text">
+          <h2>2. Core Values</h2>
+          <p>The six principles that govern everything we do here</p>
+        </div>
+        <span class="section-chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="values-grid">
+          <div class="value-card">
+            <div class="value-emoji">🔨</div>
+            <div class="value-name">Build Over Talk</div>
+            <div class="value-desc">Ship working systems, not opinions. Code, diagrams, and blueprints beat hot takes every time.</div>
+          </div>
+          <div class="value-card">
+            <div class="value-emoji">🔬</div>
+            <div class="value-name">Radical Honesty</div>
+            <div class="value-desc">Share what failed, not just what worked. Post-mortems and failure files are as valuable as wins.</div>
+          </div>
+          <div class="value-card">
+            <div class="value-emoji">🛡️</div>
+            <div class="value-name">Safety First</div>
+            <div class="value-desc">We never sacrifice ethics for speed. Responsible AI is non-negotiable, not optional.</div>
+          </div>
+          <div class="value-card">
+            <div class="value-emoji">🤝</div>
+            <div class="value-name">Lift Others Up</div>
+            <div class="value-desc">Knowledge hoarding is the enemy. Share blueprints freely. Teach what you know.</div>
+          </div>
+          <div class="value-card">
+            <div class="value-emoji">📐</div>
+            <div class="value-name">Precision Matters</div>
+            <div class="value-desc">Vague is useless. Be specific, cite sources, show your architecture, share your config.</div>
+          </div>
+          <div class="value-card">
+            <div class="value-emoji">🌐</div>
+            <div class="value-name">Inclusive Excellence</div>
+            <div class="value-desc">The best builders come from everywhere. Gatekeeping kills innovation. Welcome all skill levels.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. CODE OF CONDUCT -->
+    <div class="doc-section" id="conduct">
+      <div class="section-head open" onclick="toggleSection(this)">
+        <div class="section-icon blue">⚖️</div>
+        <div class="section-title-text">
+          <h2>3. Code of Conduct</h2>
+          <p>Behavioural standards expected of every member</p>
+        </div>
+        <span class="section-chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="rules-list">
+          <div class="rule-item">
+            <div class="rule-num">R1</div>
+            <div class="rule-content">
+              <div class="rule-title">Be Respectful, Always</div>
+              <div class="rule-desc">Treat every member — regardless of experience level, background, or viewpoint — with dignity. Disagreement is healthy; disrespect is not. Critique ideas, never people. <strong>No personal attacks, no condescension, no bullying.</strong></div>
+            </div>
+            <div class="rule-tag must">MUST</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">R2</div>
+            <div class="rule-content">
+              <div class="rule-title">Zero Tolerance for Harassment</div>
+              <div class="rule-desc">Harassment in any form — sexual, racial, political, or otherwise — results in immediate removal. This includes DMs. The community space extends to all interactions initiated through this society.</div>
+            </div>
+            <div class="rule-tag never">NEVER</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">R3</div>
+            <div class="rule-content">
+              <div class="rule-title">No Discrimination or Bigotry</div>
+              <div class="rule-desc">Comments or content that discriminate based on gender, race, nationality, religion, sexual orientation, disability, or age are prohibited outright. The best code has no bias. Neither do we.</div>
+            </div>
+            <div class="rule-tag never">NEVER</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">R4</div>
+            <div class="rule-content">
+              <div class="rule-title">Assume Good Faith</div>
+              <div class="rule-desc">Most confusion is intent, not malice. Before escalating, ask a clarifying question. Assume the other person is trying to build something useful, not destroy something valuable.</div>
+            </div>
+            <div class="rule-tag should">SHOULD</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">R5</div>
+            <div class="rule-content">
+              <div class="rule-title">No Impersonation or Deception</div>
+              <div class="rule-desc">Do not impersonate other members, public figures, or AI systems. Do not misrepresent your credentials, affiliation, or the results of your systems. <strong>Ship truth, not marketing.</strong></div>
+            </div>
+            <div class="rule-tag never">NEVER</div>
+          </div>
+        </div>
+
+        <div class="rule-divider"></div>
+        <div id="do-dont">
+          <p style="font-size:13px;color:var(--text2);margin-bottom:12px;">Quick reference for everyday interactions:</p>
+          <div class="do-dont">
+            <div class="do-box">
+              <h4>✅ Do This</h4>
+              <ul>
+                <li>Give constructive, specific feedback on code or architectures</li>
+                <li>Share your failures alongside your wins</li>
+                <li>Credit others when building on their work</li>
+                <li>Welcome beginners with patience</li>
+                <li>Tag your posts with the right topic channels</li>
+                <li>Use threads to keep discussions organised</li>
+              </ul>
+            </div>
+            <div class="dont-box">
+              <h4>🚫 Don't Do This</h4>
+              <ul>
+                <li>Post "AI is going to take all our jobs" doom-scrolling content</li>
+                <li>Dismiss someone's question as "too basic"</li>
+                <li>DM members unsolicited to sell services</li>
+                <li>Repost others' blueprints without attribution</li>
+                <li>Argue about which LLM is "the best" without evidence</li>
+                <li>Flood channels with self-promotional content</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. CONTENT STANDARDS -->
+    <div class="doc-section" id="content">
+      <div class="section-head open" onclick="toggleSection(this)">
+        <div class="section-icon orange">📝</div>
+        <div class="section-title-text">
+          <h2>4. Content Standards</h2>
+          <p>What belongs here, what doesn't, and how to post well</p>
+        </div>
+        <span class="section-chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div id="quality">
+          <div class="callout info">
+            <span class="callout-icon">💡</span>
+            <div><strong>The signal bar is high.</strong> Before posting, ask: <em>"Does this help someone build something better, faster, or safer?"</em> If the answer is no, reconsider.</div>
+          </div>
+        </div>
+
+        <div class="rules-list" style="margin-top:16px;">
+          <div class="rule-item">
+            <div class="rule-num">C1</div>
+            <div class="rule-content">
+              <div class="rule-title">Builder-First Content Only</div>
+              <div class="rule-desc">All posts must be actionable for builders. Relevant content includes: workflow blueprints, architecture diagrams, code snippets, failure post-mortems, governance frameworks, tool comparisons with evidence, and research with practical implications.</div>
+            </div>
+            <div class="rule-tag must">MUST</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">C2</div>
+            <div class="rule-content">
+              <div class="rule-title">No Pure Hype or News Dumps</div>
+              <div class="rule-desc">Sharing an article link with no context or opinion is not a post — it's a bookmark. Add <strong>your analysis</strong>, what it means for agentic workflows, and how builders should respond. News without insight is noise.</div>
+            </div>
+            <div class="rule-tag warn">AVOID</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">C3</div>
+            <div class="rule-content">
+              <div class="rule-title">No Spam or Unsolicited Promotion</div>
+              <div class="rule-desc">One self-promotional post per week max. Product launches, job postings, and service offers must be tagged <code>#promo</code> and posted only in designated channels. Cold outreach to members via DM is a bannable offense.</div>
+            </div>
+            <div class="rule-tag never">NEVER</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">C4</div>
+            <div class="rule-content">
+              <div class="rule-title">Cite Your Sources &amp; Credit Collaborators</div>
+              <div class="rule-desc">If your blueprint builds on someone else's work, say so. Link the original. Tag the author. This community grows by standing on each other's shoulders, not by stealing credit. Intellectual honesty is a hard requirement.</div>
+            </div>
+            <div class="rule-tag must">MUST</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">C5</div>
+            <div class="rule-content">
+              <div class="rule-title">Label Speculation Clearly</div>
+              <div class="rule-desc">If you're theorising, predicting, or opining rather than reporting tested results, say so explicitly. Use markers like <code>[THEORY]</code>, <code>[UNTESTED]</code>, or <code>[OPINION]</code> in your post title so readers calibrate correctly.</div>
+            </div>
+            <div class="rule-tag should">SHOULD</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">C6</div>
+            <div class="rule-content">
+              <div class="rule-title">No Misleading Benchmarks</div>
+              <div class="rule-desc">If you benchmark a model or system, share your full methodology, dataset, hardware spec, and evaluation criteria. Cherry-picked benchmarks erode trust. <strong>If your result can't be reproduced, it doesn't count.</strong></div>
+            </div>
+            <div class="rule-tag never">NEVER</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. KNOWLEDGE SHARING -->
+    <div class="doc-section" id="knowledge">
+      <div class="section-head open" onclick="toggleSection(this)">
+        <div class="section-icon teal">🔁</div>
+        <div class="section-title-text">
+          <h2>5. Knowledge Sharing Rules</h2>
+          <p>How we share blueprints, code, and IP responsibly</p>
+        </div>
+        <span class="section-chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="rules-list">
+          <div class="rule-item">
+            <div class="rule-num">K1</div>
+            <div class="rule-content">
+              <div class="rule-title">Open by Default</div>
+              <div class="rule-desc">Blueprints and code shared in community channels are assumed to be open for adaptation and iteration by other members, unless explicitly marked otherwise. Knowledge hoarding defeats the mission.</div>
+            </div>
+            <div class="rule-tag should">SHOULD</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">K2</div>
+            <div class="rule-content">
+              <div class="rule-title">Respect Proprietary Work</div>
+              <div class="rule-desc">Do not share confidential employer data, client code, or proprietary systems without explicit permission. Anonymise case studies where needed. <strong>Real-world learnings are welcome; trade secrets are not yours to share.</strong></div>
+            </div>
+            <div class="rule-tag must">MUST</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">K3</div>
+            <div class="rule-content">
+              <div class="rule-title">Document Your Failures</div>
+              <div class="rule-desc">The <strong>Failure Files</strong> are a core pillar of this community. Post-mortems, failed experiments, and "what not to do" write-ups are actively encouraged and among the most valued contributions.</div>
+            </div>
+            <div class="rule-tag should">SHOULD</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">K4</div>
+            <div class="rule-content">
+              <div class="rule-title">No Gated Knowledge Drops</div>
+              <div class="rule-desc">Do not post a teaser and then require members to subscribe to your newsletter, pay for a course, or DM you for the "real" content. If you're sharing, share fully. Bait-and-switch is banned.</div>
+            </div>
+            <div class="rule-tag never">NEVER</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. AI SAFETY & ETHICS -->
+    <div class="doc-section" id="safety">
+      <div class="section-head open" onclick="toggleSection(this)">
+        <div class="section-icon red">🛡️</div>
+        <div class="section-title-text">
+          <h2>6. AI Safety &amp; Ethics Standards</h2>
+          <p>Non-negotiable principles for responsible agentic development</p>
+        </div>
+        <span class="section-chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="callout danger">
+          <span class="callout-icon">⚠️</span>
+          <div><strong>This section has zero tolerance.</strong> Violations here result in immediate, permanent removal with no appeals process. We are building systems that act in the real world. The stakes are real.</div>
+        </div>
+
+        <div class="rules-list" style="margin-top:16px;">
+          <div class="rule-item">
+            <div class="rule-num">S1</div>
+            <div class="rule-content">
+              <div class="rule-title">No Sharing of Harmful Agentic Systems</div>
+              <div class="rule-desc">Do not share, promote, or celebrate agents designed to deceive, manipulate, surveil without consent, automate disinformation, execute malware, or cause demonstrable harm. This is not about being fragile — it's about being responsible engineers.</div>
+            </div>
+            <div class="rule-tag never">NEVER</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">S2</div>
+            <div class="rule-content">
+              <div class="rule-title">Disclose AI-Generated Content</div>
+              <div class="rule-desc">If your post, blueprint, or case study was substantially generated by an AI model without human validation, say so. Do not present unreviewed AI output as your own tested, verified work. <strong>Hallucinated architectures cost real engineering time.</strong></div>
+            </div>
+            <div class="rule-tag must">MUST</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">S3</div>
+            <div class="rule-content">
+              <div class="rule-title">Discuss Jailbreaks &amp; Red-Teaming Responsibly</div>
+              <div class="rule-desc">Security research, red-teaming, and adversarial prompt research are welcome — when framed as defensive learning. Do not post detailed jailbreak recipes or adversarial techniques without a clear defensive framing and appropriate warnings.</div>
+            </div>
+            <div class="rule-tag warn">WARN</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">S4</div>
+            <div class="rule-content">
+              <div class="rule-title">Respect Data Privacy</div>
+              <div class="rule-desc">Do not share personal data, user PII, or private communications — even in anonymised form — without appropriate consent. Your agent's logs are not community property unless you own the data and have legal right to share it.</div>
+            </div>
+            <div class="rule-tag must">MUST</div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">S5</div>
+            <div class="rule-content">
+              <div class="rule-title">Include Guardrails in Blueprints</div>
+              <div class="rule-desc">Any published workflow blueprint that involves autonomous action (web browsing, code execution, API calls, financial transactions) <strong>must include a guardrails section</strong> documenting rate limits, kill switches, and human-in-the-loop checkpoints.</div>
+            </div>
+            <div class="rule-tag must">MUST</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. ENFORCEMENT -->
+    <div class="doc-section" id="enforcement">
+      <div class="section-head open" onclick="toggleSection(this)">
+        <div class="section-icon yellow">⚡</div>
+        <div class="section-title-text">
+          <h2>7. Enforcement &amp; Consequences</h2>
+          <p>How violations are handled — transparently and consistently</p>
+        </div>
+        <span class="section-chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px;">
+          Moderators enforce these guidelines using a <strong style="color:var(--text);">graduated response system</strong>. Severity is assessed based on intent, impact, and history. All moderation actions are logged internally.
+        </p>
+        <table class="enf-table">
+          <thead>
+            <tr>
+              <th>Level</th>
+              <th>Severity</th>
+              <th>Trigger Examples</th>
+              <th>Consequence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Level 1</td>
+              <td><span class="sev low">● LOW</span></td>
+              <td>Off-topic post, missing tag, news dump without analysis, minor formatting issues</td>
+              <td>Post removed with explanation. No strike issued. Educational DM from moderator.</td>
+            </tr>
+            <tr>
+              <td>Level 2</td>
+              <td><span class="sev med">● MEDIUM</span></td>
+              <td>Spam, unsolicited promo, condescending tone, misleading benchmark, gated content bait</td>
+              <td>Post removed. First strike issued. 7-day posting restriction. Warning on record.</td>
+            </tr>
+            <tr>
+              <td>Level 3</td>
+              <td><span class="sev high">● HIGH</span></td>
+              <td>Harassment, discrimination, repeated violations, impersonation, sharing harmful systems</td>
+              <td>Second strike. 30-day suspension. Appeal review required for reinstatement.</td>
+            </tr>
+            <tr>
+              <td>Level 4</td>
+              <td><span class="sev perm">● PERMANENT</span></td>
+              <td>Physical/sexual threats, sharing of harmful agents, data privacy violations, third strike</td>
+              <td>Immediate permanent ban. No appeals. Reported to relevant platforms if applicable.</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="callout warning" style="margin-top:16px;">
+          <span class="callout-icon">⚡</span>
+          <div><strong>Moderators reserve the right to skip levels</strong> for severe first offenses. Context matters. Repeated bad-faith behavior accelerates the enforcement ladder. A "strike" expires after 180 days of clean record.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. REPORTING -->
+    <div class="doc-section" id="reporting">
+      <div class="section-head open" onclick="toggleSection(this)">
+        <div class="section-icon green">📣</div>
+        <div class="section-title-text">
+          <h2>8. Reporting a Violation</h2>
+          <p>How to flag issues safely and what happens next</p>
+        </div>
+        <span class="section-chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <div class="rules-list">
+          <div class="rule-item">
+            <div class="rule-num">📌</div>
+            <div class="rule-content">
+              <div class="rule-title">Use the Report Flag</div>
+              <div class="rule-desc">Every post and message has a report button. Use it. Include a brief description of the violation. Reports are reviewed within <strong>24 hours on weekdays</strong>, 48 hours on weekends.</div>
+            </div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">📩</div>
+            <div class="rule-content">
+              <div class="rule-title">Direct Moderator Contact</div>
+              <div class="rule-desc">For sensitive reports (harassment, data privacy, safety), DM any moderator directly or email <code>mod@ai-agentic-society.dev</code>. Your identity is kept confidential unless disclosure is legally required.</div>
+            </div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">🔒</div>
+            <div class="rule-content">
+              <div class="rule-title">Reporter Protection</div>
+              <div class="rule-desc">Retaliation against reporters is a Level 3 violation. You will never be punished for good-faith reporting, even if the reported content turns out not to be a violation. Report. We'll investigate.</div>
+            </div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">⚖️</div>
+            <div class="rule-content">
+              <div class="rule-title">Appeals Process</div>
+              <div class="rule-desc">Level 2 and Level 3 actions may be appealed within 14 days by emailing <code>appeals@ai-agentic-society.dev</code>. Appeals are reviewed by a panel of 3 senior moderators not involved in the original decision. Level 4 bans are not appealable.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 9. AMENDMENTS -->
+    <div class="doc-section" id="amendments">
+      <div class="section-head open" onclick="toggleSection(this)">
+        <div class="section-icon blue">🔄</div>
+        <div class="section-title-text">
+          <h2>9. Amendments &amp; Versioning</h2>
+          <p>How these guidelines evolve with the community</p>
+        </div>
+        <span class="section-chevron">▼</span>
+      </div>
+      <div class="section-body">
+        <p style="font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:16px;">These guidelines are a living document, versioned like software. Major changes go through community RFC (Request for Comment) before ratification.</p>
+        <div class="rules-list">
+          <div class="rule-item">
+            <div class="rule-num">A1</div>
+            <div class="rule-content">
+              <div class="rule-title">Quarterly Review Cycle</div>
+              <div class="rule-desc">Guidelines are formally reviewed every quarter. Minor clarifications are merged without RFC. Any change to enforcement levels, new prohibited behaviours, or removal of protections requires a 7-day community RFC period.</div>
+            </div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">A2</div>
+            <div class="rule-content">
+              <div class="rule-title">Member Proposals</div>
+              <div class="rule-desc">Any member in good standing (no active strikes) may propose a guideline change by opening a <code>Discussion</code> tagged <code>[RFC]</code>. Proposals require 20 upvotes and moderator review to enter the formal amendment process.</div>
+            </div>
+          </div>
+          <div class="rule-item">
+            <div class="rule-num">A3</div>
+            <div class="rule-content">
+              <div class="rule-title">Change Log</div>
+              <div class="rule-desc">All changes are documented in the <code>CHANGELOG.md</code> of the guidelines repository with version number, change summary, rationale, and effective date. Transparency is not optional.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="rule-divider"></div>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text3);background:var(--bg3);border:1px solid var(--border2);border-radius:6px;padding:14px 16px;line-height:1.8;">
+          <span style="color:var(--green-h);">v1.0.0</span> · March 2026 · Initial release<br>
+          <span style="color:var(--text3);">── Drafted by founding moderation team</span><br>
+          <span style="color:var(--text3);">── Ratified after 14-day community RFC</span><br>
+          <span style="color:var(--text3);">── Next review: June 2026</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- FOOTER CARD -->
+    <div class="doc-footer">
+      <div>
+        <p><strong style="color:var(--text);">Questions about these guidelines?</strong><br>
+        Open a <a href="#">Discussion</a> tagged <code>[GUIDELINES]</code>, or DM any moderator directly.<br>
+        For urgent safety concerns: <a href="#">aiagenticsociety@gmail.com</a></p>
+      </div>
+      <div class="footer-actions">
+        <button class="nav-btn">📋 Copy Link</button>
+        <button class="nav-btn primary">💬 Discuss</button>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<!-- SITE FOOTER -->
+<footer class="gh-footer">
+  <p><a href="#">Terms</a> · <a href="#">Privacy</a> · <a href="#">Security</a> · <a href="index.html">Back to Org</a> · <a href="#">Report an Issue</a></p>
+  <p style="margin-top:8px;">© 2026 AI Agentic Society · <span style="color:var(--green-h);">Stop asking. Start orchestrating.</span></p>
+</footer>
+
+<script>
+  // Toggle sections
+  function toggleSection(head) {
+    head.classList.toggle('open');
+    const body = head.nextElementSibling;
+    if (body) {
+      body.style.display = head.classList.contains('open') ? 'block' : 'none';
+    }
+  }
+
+  // TOC active highlight on scroll
+  const sections = document.querySelectorAll('[id]');
+  const tocLinks = document.querySelectorAll('.toc-item');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        tocLinks.forEach(li => {
+          li.classList.remove('active');
+          if (li.querySelector('a')?.getAttribute('href') === '#' + e.target.id) {
+            li.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
+  sections.forEach(s => observer.observe(s));
+
+  // Copy link button
+  document.querySelector('.footer-actions .nav-btn').addEventListener('click', () => {
+    navigator.clipboard.writeText(window.location.href).then(() => {
+      const btn = document.querySelector('.footer-actions .nav-btn');
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => btn.textContent = '📋 Copy Link', 2000);
+    });
+  });
+</script>
+</body>
+</html>
