@@ -165,7 +165,7 @@
   .manifesto-card:hover::before { transform: scaleX(1); }
   .card-icon { font-size: 2rem; margin-bottom: 20px; display: block; }
   .card-number { position: absolute; top: 20px; right: 24px; font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--border); letter-spacing: 0.1em; }
-  .card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; letter-spacing: 0.06em; color: var(--amber); margin-bottom: 14px; }
+  .card-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(1.1rem, 2vw, 1.5rem); letter-spacing: 0.04em; color: var(--amber); margin-bottom: 14px; line-height: 1.15; }
   .card-body { font-size: 0.92rem; line-height: 1.7; color: #8090a0; }
 
   .expect-list { display: flex; flex-direction: column; gap: 2px; border: 1px solid var(--border); background: var(--border); }
@@ -244,27 +244,85 @@
 <div class="ambient ambient2"></div>
 
 <nav>
-  <div class="nav-logo">AI Agentic<span> Society</span></div>
-  <div class="nav-tag">v2026 // Builder-First</div>
-  <button class="nav-cta">Join the Build</button>
+  <div class="nav-logo">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="73 40 174 200" width="28" height="32" style="display:inline-block;vertical-align:middle;margin-right:10px;">
+      <polygon points="247,90 160,40 73,90 73,190 160,240 247,190" fill="none" stroke="#f5a623" stroke-width="1.5"/>
+      <polygon points="208.5,112 160,84 111.5,112 111.5,168 160,196 208.5,168" fill="none" stroke="#f5a623" stroke-width="0.75" stroke-dasharray="3 3" opacity="0.45"/>
+      <line x1="160" y1="140" x2="208.5" y2="112" stroke="#f5a623" stroke-width="0.75" opacity="0.6"/>
+      <line x1="160" y1="140" x2="160" y2="84" stroke="#f5a623" stroke-width="0.75" opacity="0.6"/>
+      <line x1="160" y1="140" x2="111.5" y2="112" stroke="#f5a623" stroke-width="0.75" opacity="0.6"/>
+      <line x1="160" y1="140" x2="111.5" y2="168" stroke="#f5a623" stroke-width="0.75" opacity="0.6"/>
+      <line x1="160" y1="140" x2="160" y2="196" stroke="#f5a623" stroke-width="0.75" opacity="0.6"/>
+      <line x1="160" y1="140" x2="208.5" y2="168" stroke="#f5a623" stroke-width="0.75" opacity="0.6"/>
+      <circle fill="#f5a623" cx="247" cy="90" r="3"/><circle fill="#f5a623" cx="160" cy="40" r="3"/>
+      <circle fill="#f5a623" cx="73" cy="90" r="3"/><circle fill="#f5a623" cx="73" cy="190" r="3"/>
+      <circle fill="#f5a623" cx="160" cy="240" r="3"/><circle fill="#f5a623" cx="247" cy="190" r="3"/>
+      <circle cx="208.5" cy="112" r="7" fill="#080a0c" stroke="#f5a623" stroke-width="1.25"/>
+      <circle cx="160" cy="84" r="7" fill="#080a0c" stroke="#f5a623" stroke-width="1.25"/>
+      <circle cx="111.5" cy="112" r="7" fill="#080a0c" stroke="#f5a623" stroke-width="1.25"/>
+      <circle cx="111.5" cy="168" r="7" fill="#080a0c" stroke="#f5a623" stroke-width="1.25"/>
+      <circle cx="160" cy="196" r="7" fill="#080a0c" stroke="#f5a623" stroke-width="1.25"/>
+      <circle cx="208.5" cy="168" r="7" fill="#080a0c" stroke="#f5a623" stroke-width="1.25"/>
+      <circle fill="#f5a623" cx="208.5" cy="112" r="2.5"/><circle fill="#f5a623" cx="160" cy="84" r="2.5"/>
+      <circle fill="#f5a623" cx="111.5" cy="112" r="2.5"/><circle fill="#f5a623" cx="111.5" cy="168" r="2.5"/>
+      <circle fill="#f5a623" cx="160" cy="196" r="2.5"/><circle fill="#f5a623" cx="208.5" cy="168" r="2.5"/>
+      <circle cx="160" cy="140" r="15" fill="#080a0c" stroke="#f5a623" stroke-width="1.25"/>
+      <circle fill="#f5a623" cx="160" cy="140" r="6"/>
+    </svg>AI Agentic<span> Society</span>
+  </div>
+  <div class="nav-tag">Builder-First</div>
+  <button class="nav-cta" onclick="window.open('https://forms.gle/ZxNAxkgKx5v2sJhh9','_blank')">Join the Build</button>
 </nav>
 
 <div class="hero">
-  <div class="hero-eyebrow">AI Agentic Society // Est. 2026</div>
+  <div style="margin-bottom:32px;opacity:0;animation:fadeUp 0.6s 0.05s ease forwards;">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 280" width="340" height="140">
+      <polygon points="247,90 160,40 73,90 73,190 160,240 247,190" fill="none" stroke="#f5a623" stroke-width="1.5"/>
+      <polygon points="208.5,112 160,84 111.5,112 111.5,168 160,196 208.5,168" fill="none" stroke="#f5a623" stroke-width="0.75" stroke-dasharray="3 3" opacity="0.45"/>
+      <line x1="160" y1="140" x2="208.5" y2="112" stroke="#f5a623" stroke-width="0.75" opacity="0.6"/>
+      <line x1="160" y1="140" x2="160" y2="84" stroke="#f5a623" stroke-width="0.75" opacity="0.6"/>
+      <line x1="160" y1="140" x2="111.5" y2="112" stroke="#f5a623" stroke-width="0.75" opacity="0.6"/>
+      <line x1="160" y1="140" x2="111.5" y2="168" stroke="#f5a623" stroke-width="0.75" opacity="0.6"/>
+      <line x1="160" y1="140" x2="160" y2="196" stroke="#f5a623" stroke-width="0.75" opacity="0.6"/>
+      <line x1="160" y1="140" x2="208.5" y2="168" stroke="#f5a623" stroke-width="0.75" opacity="0.6"/>
+      <circle fill="#f5a623" cx="247" cy="90" r="3"/><circle fill="#f5a623" cx="160" cy="40" r="3"/>
+      <circle fill="#f5a623" cx="73" cy="90" r="3"/><circle fill="#f5a623" cx="73" cy="190" r="3"/>
+      <circle fill="#f5a623" cx="160" cy="240" r="3"/><circle fill="#f5a623" cx="247" cy="190" r="3"/>
+      <circle cx="208.5" cy="112" r="7" fill="#080a0c" stroke="#f5a623" stroke-width="1.25"/>
+      <circle cx="160" cy="84" r="7" fill="#080a0c" stroke="#f5a623" stroke-width="1.25"/>
+      <circle cx="111.5" cy="112" r="7" fill="#080a0c" stroke="#f5a623" stroke-width="1.25"/>
+      <circle cx="111.5" cy="168" r="7" fill="#080a0c" stroke="#f5a623" stroke-width="1.25"/>
+      <circle cx="160" cy="196" r="7" fill="#080a0c" stroke="#f5a623" stroke-width="1.25"/>
+      <circle cx="208.5" cy="168" r="7" fill="#080a0c" stroke="#f5a623" stroke-width="1.25"/>
+      <circle fill="#f5a623" cx="208.5" cy="112" r="2.5"/><circle fill="#f5a623" cx="160" cy="84" r="2.5"/>
+      <circle fill="#f5a623" cx="111.5" cy="112" r="2.5"/><circle fill="#f5a623" cx="111.5" cy="168" r="2.5"/>
+      <circle fill="#f5a623" cx="160" cy="196" r="2.5"/><circle fill="#f5a623" cx="208.5" cy="168" r="2.5"/>
+      <circle cx="160" cy="140" r="26" fill="none" stroke="#f5a623" stroke-width="0.5" opacity="0.2"/>
+      <circle cx="160" cy="140" r="15" fill="#080a0c" stroke="#f5a623" stroke-width="1.25"/>
+      <circle fill="#f5a623" cx="160" cy="140" r="6"/>
+      <line x1="160" y1="126" x2="160" y2="154" stroke="#f5a623" stroke-width="0.5" opacity="0.35"/>
+      <line x1="146" y1="140" x2="174" y2="140" stroke="#f5a623" stroke-width="0.5" opacity="0.35"/>
+      <line x1="312" y1="100" x2="342" y2="100" stroke="#f5a623" stroke-width="1" opacity="0.7"/>
+      <text font-family="'JetBrains Mono',monospace" fill="#f5a623" x="350" y="105" font-size="11" font-weight="500" dominant-baseline="central" letter-spacing="4">AI</text>
+      <line x1="374" y1="100" x2="420" y2="100" stroke="#f5a623" stroke-width="1" opacity="0.7"/>
+      <text font-family="'Bebas Neue',Impact,sans-serif" fill="#e6edf3" x="308" y="172" font-size="82" dominant-baseline="central" letter-spacing="4">AGENTIC</text>
+      <text font-family="'Bebas Neue',Impact,sans-serif" fill="#8b949e" x="311" y="232" font-size="44" dominant-baseline="central" letter-spacing="22">SOCIETY</text>
+    </svg>
+  </div>
+  <div class="hero-eyebrow">AI Agentic Society </div>
   <h1 class="hero-title">
     The Era of <span class="strike">Chatting</span><br>
     <span class="highlight">Is Over.</span>
   </h1>
   <div class="hero-sub">The Era of<br>Building Has Begun.</div>
   <p class="hero-desc">
-    In 2026, writing a prompt is table stakes. The real competitive advantage lies in
+    Writing a prompt is table stakes. The real competitive advantage lies in
     <strong>Agentic Workflows</strong>—systems that don't just talk, but act, reason, and execute.
     <br><br>
     <strong>Welcome to the AI Agentic Society.</strong> We don't follow the hype. We build the infrastructure.<span class="blink">_</span>
   </p>
   <div class="hero-actions">
-    <button class="btn-primary"><span>⬡</span> Join the Community</button>
-    <button class="btn-secondary">Read the Manifesto</button>
+    <button class="btn-primary" onclick="window.open('https://forms.gle/ZxNAxkgKx5v2sJhh9','_blank')"><span>⬡</span> Join the Community</button>
   </div>
 </div>
 
@@ -282,73 +340,38 @@
 </div>
 
 <section>
-  <div class="section-label reveal">Why We're Here</div>
-  <h2 class="section-title reveal">Three Pillars.<br><em>Zero Hype.</em></h2>
+  <div class="section-label" style="animation: fadeUp 0.6s 0.1s ease both;">Why We're Here</div>
+  <h2 class="section-title" style="animation: fadeUp 0.7s 0.15s ease both;">Three Pillars.<br><em>Zero Hype.</em></h2>
   <div class="manifesto-grid">
-    <div class="manifesto-card reveal">
+    <div class="manifesto-card" style="animation: fadeUp 0.7s 0.2s ease both;">
       <span class="card-number">01</span>
       <span class="card-icon">🛠️</span>
-      <div class="card-title">Architect</div>
+      <div class="card-title">Share and Learn to Architect</div>
       <p class="card-body">Moving beyond single prompts into multi-step, autonomous agents. We design systems with memory, planning, and real-world tool use—not demos.</p>
     </div>
-    <div class="manifesto-card reveal">
+    <div class="manifesto-card" style="animation: fadeUp 0.7s 0.35s ease both;">
       <span class="card-number">02</span>
       <span class="card-icon">🛡️</span>
-      <div class="card-title">Secure</div>
+      <div class="card-title">Share and Learn to Secure</div>
       <p class="card-body">Implementing the guardrails and ethics that enterprise-grade AI demands. Because deployed agents need accountability, not just capability.</p>
     </div>
-    <div class="manifesto-card reveal">
+    <div class="manifesto-card" style="animation: fadeUp 0.7s 0.5s ease both;">
       <span class="card-number">03</span>
       <span class="card-icon">📡</span>
-      <div class="card-title">Scale</div>
+      <div class="card-title">Share and Learn to Scale</div>
       <p class="card-body">Sharing the blueprints that turn local experiments into global infrastructure. The gap between prototype and production is where we live.</p>
     </div>
   </div>
 </section>
 
-<section style="padding-top: 0;">
-  <div class="section-label reveal">Inside the Community</div>
-  <h2 class="section-title reveal">What You'll<br><em>Actually Get.</em></h2>
-  <div class="expect-list">
-    <div class="expect-item reveal">
-      <div class="expect-num">01</div>
-      <div class="expect-content"><h3>Workflow Blueprints</h3><p>Proven recipes for agentic automation. Copy, fork, and deploy real systems—not thought experiments.</p></div>
-      <div class="expect-tag active">Live</div>
-    </div>
-    <div class="expect-item reveal">
-      <div class="expect-num">02</div>
-      <div class="expect-content"><h3>The Failure Files</h3><p>An honest look at what's not working in GenAI right now. Because failure analysis is a superpower.</p></div>
-      <div class="expect-tag active">Live</div>
-    </div>
-    <div class="expect-item reveal">
-      <div class="expect-num">03</div>
-      <div class="expect-content"><h3>Governance Audits</h3><p>Keeping your builds safe, ethical, and defensible. Compliance isn't the enemy of innovation.</p></div>
-      <div class="expect-tag">Coming Soon</div>
-    </div>
-    <div class="expect-item reveal">
-      <div class="expect-num">04</div>
-      <div class="expect-content"><h3>Builder Roundtables</h3><p>Live sessions with ops leaders, engineers, and founders who are actually shipping agentic systems in production.</p></div>
-      <div class="expect-tag">Coming Soon</div>
-    </div>
-  </div>
-</section>
-
-<section style="padding-top: 0; padding-bottom: 0;">
-  <div class="stats-row reveal">
-    <div class="stat-box"><div class="stat-num" id="s1">2,400+</div><div class="stat-label">Builders Joined</div></div>
-    <div class="stat-box"><div class="stat-num" id="s2">85+</div><div class="stat-label">Blueprints Shared</div></div>
-    <div class="stat-box"><div class="stat-num" id="s3">40+</div><div class="stat-label">Industries Covered</div></div>
-    <div class="stat-box"><div class="stat-num" id="s4">0</div><div class="stat-label">Hype Merchants</div></div>
-  </div>
-</section>
 
 <section>
-  <div class="section-label reveal">For Whom</div>
-  <h2 class="section-title reveal">If You're Ready to<br><em>Orchestrate—</em></h2>
-  <p style="color: var(--muted); font-size: 1.05rem; line-height: 1.8; max-width: 600px; margin-bottom: 48px;" class="reveal">
+  <div class="section-label" style="animation: fadeUp 0.6s 0.1s ease both;">For Whom</div>
+  <h2 class="section-title" style="animation: fadeUp 0.7s 0.2s ease both;">If You're Ready to<br><em>Orchestrate—</em></h2>
+  <p style="color: var(--muted); font-size: 1.05rem; line-height: 1.8; max-width: 600px; margin-bottom: 48px; animation: fadeUp 0.7s 0.3s ease both;">
     This is a <strong style="color: var(--text);">Builder-First</strong> community. Whether you're an Ops leader, a developer, or a founder—if you're done "asking" and ready to start <strong style="color: var(--amber);">orchestrating</strong>, you belong here.
   </p>
-  <div class="stats-row reveal" style="max-width: 640px;">
+  <div class="stats-row" style="max-width: 640px; animation: fadeUp 0.7s 0.4s ease both;">
     <div class="stat-box" style="padding: 24px 20px;"><div class="stat-num" style="font-size:2rem;">⚙️</div><div class="stat-label">Developers</div></div>
     <div class="stat-box" style="padding: 24px 20px;"><div class="stat-num" style="font-size:2rem;">📊</div><div class="stat-label">Ops Leaders</div></div>
     <div class="stat-box" style="padding: 24px 20px;"><div class="stat-num" style="font-size:2rem;">🚀</div><div class="stat-label">Founders</div></div>
@@ -356,19 +379,9 @@
   </div>
 </section>
 
-<div class="cta-banner">
-  <div class="cta-inner">
-    <div class="cta-text">
-      <h2>Let's Build Something<br>That Actually Works.</h2>
-      <p>Stop chatting. Start shipping. Join the AI Agentic Society today.</p>
-    </div>
-    <button class="btn-dark">🔑 Join Free — Start Building</button>
-  </div>
-</div>
-
 <footer>
   <div class="footer-logo">AI Agentic<span> Society</span></div>
-  <div class="footer-note">© 2026 AI Agentic Society — Builder-First Community</div>
+  <div class="footer-note">© AI Agentic Society — Builder-First Community</div>
   <div class="footer-tagline">Stop Asking. Start Orchestrating.</div>
 </footer>
 
@@ -386,41 +399,6 @@
   reveals.forEach(r => io.observe(r));
 
   document.addEventListener('mousemove', (e) => {
-    const x = (e.clientX / window.innerWidth - 0.5) * 40;
-    const y = (e.clientY / window.innerHeight - 0.5) * 40;
-    document.querySelector('.ambient').style.transform = `translate(${x}px, ${y}px)`;
-  });
-
-  function animateCount(el, target, suffix) {
-    let start = 0;
-    const duration = 1800;
-    const step = (ts) => {
-      if (!start) start = ts;
-      const p = Math.min((ts - start) / duration, 1);
-      const ease = 1 - Math.pow(1 - p, 3);
-      el.textContent = Math.floor(ease * target).toLocaleString() + suffix;
-      if (p < 1) requestAnimationFrame(step);
-      else el.textContent = target.toLocaleString() + suffix;
-    };
-    requestAnimationFrame(step);
-  }
-
-  const statEls = [
-    { el: document.getElementById('s1'), val: 2400, suffix: '+' },
-    { el: document.getElementById('s2'), val: 85,   suffix: '+' },
-    { el: document.getElementById('s3'), val: 40,   suffix: '+' },
-    { el: document.getElementById('s4'), val: 0,    suffix: ''  },
-  ];
-  const so = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        const found = statEls.find(s => s.el === e.target);
-        if (found) animateCount(found.el, found.val, found.suffix);
-        so.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.5 });
-  statEls.forEach(s => so.observe(s.el));
 </script>
 </body>
 </html>
